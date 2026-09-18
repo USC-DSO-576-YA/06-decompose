@@ -6,6 +6,14 @@ Monday: repeat familiar pandas work across regions and monthly files; trace a
 condition-controlled inventory calculation. Wednesday: build a cleaning script
 with the instructor, one approved step at a time.
 
+## AI help
+
+Personal AI help in this repo is **hints-only**, including Wednesday: short context
+reminders, one hint at a time, and feedback on your attempt—not completed code or
+answers. The instructor-led demonstration is separate. See [tutor.md](tutor.md)
+and [AGENTS.md](AGENTS.md). After updating your clone, start a new Codex session
+from this repo to load the instructions.
+
 ## Start
 
 Open a terminal in this folder. The same commands work in Terminal and PowerShell.
