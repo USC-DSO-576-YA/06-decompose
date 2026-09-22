@@ -32,6 +32,27 @@ If you received a ZIP, extract it so the folder is `~/dso576/06-repeat`.
 If you cloned the course copy, work locally and commit locally. Do not push to
 the shared course repository. Follow the handout for exercises and submission.
 
+## Ralphs homework
+
+The Ralphs data-cleaning homework has moved here from Module 5. Open
+[`module06_ralphs.ipynb`](module06_ralphs.ipynb) in this repository's top-level
+folder and follow [RALPHS_HOMEWORK.md](RALPHS_HOMEWORK.md). The notebook has
+Markdown instructions and blank code cells; only the data loader is supplied.
+Use `data/11-ralphs_sales.csv.gz`, which is already included unchanged.
+
+Run `uv sync` and select this repository's `.venv` Python as the notebook
+kernel. If necessary, register it with:
+
+```text
+uv run python -m ipykernel install --user --name dso576-module6 --display-name "DSO576 Module 6"
+```
+
+Submit the completed `module06_ralphs.ipynb` to the Module 6 homework assignment
+on Gradescope, following the posted course deadline. Do not push student work
+to this shared repository. If you already began the Module 5 Ralphs notebook,
+keep your work and continue it here under the new filename rather than starting
+over. The hints-only AI policy above still applies.
+
 ## Data
 
 The four practice CSVs are fictional teaching data. The additional

@@ -37,6 +37,10 @@ It is additional material, not a replacement for `weekly_sales_messy.csv` in
 the current guided exercise. Inspect its columns and values before adapting
 the cleaning rules; the practice dataset's answers do not apply to this file.
 
+The moved Ralphs homework uses this file in `module06_ralphs.ipynb` at the
+repository root. See `../RALPHS_HOMEWORK.md` for the full homework instructions.
+The archive is byte-for-byte identical to the copy formerly in Module 5.
+
 Read the compressed CSV directly with pandas (no manual extraction needed):
 
 ```python
