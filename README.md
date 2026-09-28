@@ -16,13 +16,14 @@ from download_wildfire import download_data
 source = download_data()
 ```
 
-This downloads the national USDA archive (about 259 MB), prepares the California
-CSV, and returns its path. Completed files are reused. Allow about 2 GB of free
-disk space. Rerun the cell if the connection fails.
+This downloads the national USDA archive (about 259 MB), exports every record
+and attribute field to `data/raw/wildfire_raw.csv`, and returns its path.
+Completed files are reused. Allow about 4 GB of free disk space.
+Rerun the cell if the connection fails.
 
-The next cell reads `source` with pandas. Class scope is **California, 1992–2024**.
-The notebook includes a short `.loc[]` example for selecting rows and columns.
-The source stays unchanged; cleaning and analysis are left for class.
+The notebook loads the full table with pandas, then selects California with
+`.loc[]`. It keeps all columns. The source has one table, so no merge or concat
+is needed. Cleaning, type conversions, and analysis are left for class.
 
 You can also prepare the data from Terminal or PowerShell:
 

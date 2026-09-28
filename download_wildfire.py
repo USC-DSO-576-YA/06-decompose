@@ -1,4 +1,4 @@
-"""Download the USDA source and prepare a California CSV for class."""
+"""Download the USDA source and export the full nationwide table to CSV."""
 
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -14,12 +14,6 @@ URL = (
 )
 RAW_DIR = Path(__file__).resolve().parent / "data" / "raw"
 LAYER = "Fire_FPA_FOD_7th_Fires"
-CLASS_COLUMNS = [
-    "FOD_ID", "FIRE_NAME", "FIRE_YEAR", "DISCOVERY_DATE", "CONT_DATE",
-    "FIRE_SIZE", "FIRE_SIZE_CLASS", "NWCG_CAUSE_CLASSIFICATION",
-    "NWCG_GENERAL_CAUSE", "STATE", "COUNTY", "FIPS_CODE", "FIPS_NAME",
-    "LATITUDE", "LONGITUDE",
-]
 
 
 def _download_source(data_dir=RAW_DIR):
@@ -103,35 +97,45 @@ def _download_source(data_dir=RAW_DIR):
     return gdb
 
 
-def prepare_class_csv(data_dir=RAW_DIR):
-    """Export California source fields without cleaning or aggregation."""
+def prepare_raw_csv(data_dir=RAW_DIR):
+    """Export every record and attribute field without cleaning or filtering."""
     source = _download_source(data_dir)
-    csv_path = Path(data_dir).resolve() / "wildfire_ca.csv"
+    csv_path = Path(data_dir).resolve() / "wildfire_raw.csv"
     if csv_path.is_file():
-        print(f"Class CSV already available: {csv_path}")
+        print(f"Raw CSV already available: {csv_path}")
         return csv_path
 
     import pyogrio
 
-    print("Preparing the California CSV...", flush=True)
-    frame = pyogrio.read_dataframe(
-        source, layer=LAYER, columns=CLASS_COLUMNS,
-        where="STATE = 'CA'", read_geometry=False,
-    )
-    frame = frame.loc[:, CLASS_COLUMNS]
+    info = pyogrio.read_info(source, layer=LAYER)
+    total = info["features"]
+    print(f"Exporting all {total:,} records and all attribute fields...", flush=True)
     part = csv_path.with_suffix(".csv.part")
     try:
-        frame.to_csv(part, index=False)
+        # Write the one source table in batches to limit memory use.
+        # Geometry stays in the original .gdb; every attribute is exported.
+        written = 0
+        with part.open("w", encoding="utf-8", newline="") as out:
+            for start in range(0, total, 100_000):
+                frame = pyogrio.read_dataframe(
+                    source, layer=LAYER, read_geometry=False, fid_as_index=True,
+                    skip_features=start, max_features=100_000,
+                )
+                frame.to_csv(out, index_label=info["fid_column"], header=start == 0)
+                written += len(frame)
+                print(f"  {written:,} / {total:,} records", flush=True)
+        if written != total:
+            raise ValueError(f"Incomplete export: {written:,} of {total:,} records.")
         part.replace(csv_path)
     finally:
         part.unlink(missing_ok=True)
-    print(f"Ready: {csv_path} ({len(frame):,} records). No cleaning performed.")
+    print(f"Ready: {csv_path}. No cleaning, filtering, or aggregation performed.")
     return csv_path
 
 
 def download_data(data_dir=RAW_DIR):
-    """Prepare the class data and return its CSV path for pandas."""
-    return prepare_class_csv(data_dir)
+    """Return the full nationwide CSV path for pandas; do not clean the data."""
+    return prepare_raw_csv(data_dir)
 
 
 if __name__ == "__main__":

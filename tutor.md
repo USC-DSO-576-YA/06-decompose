@@ -2,8 +2,9 @@
 
 Follow `AGENTS.md`. The class workflow is **inspect → clean → plan → build**.
 Use `module06_wildfire.ipynb` and `data/README.md` for context. The supplied
-`download_wildfire.py` downloads the source and prepares the California CSV.
-The notebook uses pandas to load the CSV and select rows and columns.
+`download_wildfire.py` exports the full nationwide table without cleaning.
+The notebook loads all records and columns, then selects California with pandas.
+Students choose cleaning rules and data types during class.
 
 ## For students: start here
 

@@ -5,9 +5,9 @@
 | Source | USDA Forest Service, FPA FOD, seventh edition |
 | Coverage | U.S. reported wildfires, 1992–2024 |
 | Format | Zipped ESRI file geodatabase; no ArcGIS installation needed |
-| Classroom scope | California by default; source archive remains nationwide |
+| Classroom scope | Load all states, then select California in the notebook |
 | One row | One wildfire occurrence record |
-| Preparation | Download, extraction, and a California CSV; no cleaning or aggregation |
+| Preparation | Download, extraction, and a full CSV export; no cleaning or filtering |
 
 [Download the national archive](https://data.fs.usda.gov/geodata/edw/edw_resources/fc/S_USA.Fire_FPA_FOD_7th_Fires.gdb.zip)
 · [Dataset citation and metadata](https://doi.org/10.2737/RDS-2013-0009.7)
@@ -18,11 +18,17 @@ extracted `.gdb` folder intact. `data/raw/wildfire_source.json` records the URL,
 archive size, SHA-256, and local path. Large downloaded files are ignored by Git
 and are not included in the student ZIP.
 
-The supplied script creates `data/raw/wildfire_ca.csv` with the California
-records and the fields below. It keeps latitude and longitude and omits geometry.
-The notebook reads the CSV with pandas. It reads county codes as text to retain
-leading zeros. Empty CSV fields are read as missing; other text is preserved.
-Dates load as text for inspection in class. The national source stays unchanged.
+The supplied script creates `data/raw/wildfire_raw.csv` with **all 2,661,383
+records**, all 38 attribute fields, and the source `OBJECTID`. The archive has
+one table, so no merge or concat is needed. No records are removed, filled,
+relabeled, deduplicated, or aggregated. Geometry stays in the original `.gdb`;
+latitude and longitude are included in the CSV.
+
+The notebook loads all fields as text to preserve codes and reported values.
+Empty CSV fields are read as missing. Numeric and date conversions are left
+for class. The last loading step selects California into `ca`, keeping all
+columns. `raw` stays nationwide. The fields below are examples used in class;
+they are not a limit on the columns loaded.
 
 ## Fields used in class
 
