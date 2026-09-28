@@ -11,15 +11,17 @@ uv sync --frozen
 uv run python download_wildfire.py
 ```
 
-The script downloads the national USDA archive (about 259 MB), extracts it to
-`data/raw/`, and records the source and checksum. Allow about 2 GB of free disk
-space. It reuses a completed download. It does not clean, aggregate, or chart data.
-If the connection fails, rerun the command.
+The script downloads the national USDA archive (about 259 MB) and prepares
+`data/raw/wildfire_ca.csv` with the California records and class columns.
+It preserves the source and does no cleaning or aggregation. Allow about 2 GB
+of free disk space. Completed downloads and CSVs are reused. Rerun the command
+if the connection fails.
 
 Open **[module06_wildfire.ipynb](module06_wildfire.ipynb)** in VS Code and select
 this folder's `.venv` Python as the kernel. Run only the supplied setup and load
-cells before class. The default is **California, 1992–2024**; the downloaded
-archive includes all states. `STATE` controls the notebook's geographic scope.
+cells before class. The CSV contains **California, 1992–2024**; the downloaded
+archive includes all states. The notebook uses `pd.read_csv()` and shows a short
+`.loc[]` example for selecting rows and columns.
 If necessary, register the kernel with:
 
 ```text

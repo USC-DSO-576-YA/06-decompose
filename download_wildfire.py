@@ -1,4 +1,4 @@
-"""Download and unpack the USDA wildfire source; do not clean or analyze it."""
+"""Download the USDA source and prepare a California CSV for class."""
 
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -13,6 +13,13 @@ URL = (
     "S_USA.Fire_FPA_FOD_7th_Fires.gdb.zip"
 )
 RAW_DIR = Path(__file__).resolve().parent / "data" / "raw"
+LAYER = "Fire_FPA_FOD_7th_Fires"
+CLASS_COLUMNS = [
+    "FOD_ID", "FIRE_NAME", "FIRE_YEAR", "DISCOVERY_DATE", "CONT_DATE",
+    "FIRE_SIZE", "FIRE_SIZE_CLASS", "NWCG_CAUSE_CLASSIFICATION",
+    "NWCG_GENERAL_CAUSE", "STATE", "COUNTY", "FIPS_CODE", "FIPS_NAME",
+    "LATITUDE", "LONGITUDE",
+]
 
 
 def download_data(data_dir=RAW_DIR):
@@ -96,11 +103,37 @@ def download_data(data_dir=RAW_DIR):
     return gdb
 
 
+def prepare_class_csv(data_dir=RAW_DIR):
+    """Export California source fields without cleaning or aggregation."""
+    source = download_data(data_dir)
+    csv_path = Path(data_dir).resolve() / "wildfire_ca.csv"
+    if csv_path.is_file():
+        print(f"Class CSV already available: {csv_path}")
+        return csv_path
+
+    import pyogrio
+
+    print("Preparing the California CSV...", flush=True)
+    frame = pyogrio.read_dataframe(
+        source, layer=LAYER, columns=CLASS_COLUMNS,
+        where="STATE = 'CA'", read_geometry=False,
+    )
+    frame = frame.loc[:, CLASS_COLUMNS]
+    part = csv_path.with_suffix(".csv.part")
+    try:
+        frame.to_csv(part, index=False)
+        part.replace(csv_path)
+    finally:
+        part.unlink(missing_ok=True)
+    print(f"Ready: {csv_path} ({len(frame):,} records). No cleaning performed.")
+    return csv_path
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-dir", type=Path, default=RAW_DIR)
     args = parser.parse_args()
     try:
-        download_data(args.data_dir)
+        prepare_class_csv(args.data_dir)
     except (OSError, ValueError, BadZipFile) as error:
         parser.exit(1, f"Download setup failed: {error}\nFix the connection or path and rerun.\n")

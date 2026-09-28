@@ -7,7 +7,7 @@
 | Format | Zipped ESRI file geodatabase; no ArcGIS installation needed |
 | Classroom scope | California by default; source archive remains nationwide |
 | One row | One wildfire occurrence record |
-| Preparation | Download and extraction only; no supplied cleaning or aggregation |
+| Preparation | Download, extraction, and a California CSV; no cleaning or aggregation |
 
 [Download the national archive](https://data.fs.usda.gov/geodata/edw/edw_resources/fc/S_USA.Fire_FPA_FOD_7th_Fires.gdb.zip)
 · [Dataset citation and metadata](https://doi.org/10.2737/RDS-2013-0009.7)
@@ -18,10 +18,11 @@ extracted `.gdb` folder intact. `data/raw/wildfire_source.json` records the URL,
 archive size, SHA-256, and local path. Large downloaded files are ignored by Git
 and are not included in the student ZIP.
 
-The notebook loads selected source fields with `pyogrio`, without geometry.
-It retains latitude and longitude. The provided state filter selects the
-classroom scope; it does not clean the selected records. Set `STATE = None`
-only if you want to load the national table and have sufficient memory.
+The supplied script creates `data/raw/wildfire_ca.csv` with the California
+records and the fields below. It keeps latitude and longitude and omits geometry.
+The notebook reads the CSV with pandas. It reads county codes as text to retain
+leading zeros. Empty CSV fields are read as missing; other text is preserved.
+Dates load as text for inspection in class. The national source stays unchanged.
 
 ## Fields used in class
 
