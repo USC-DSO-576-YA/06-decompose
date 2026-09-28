@@ -175,4 +175,4 @@ one example where its result differs.”
 
 The source has already received USDA quality checks; do not invent defects.
 California is the default class scope. Source units and dataset limitations are
-in `data/README.md`. The Ralphs notebook is separate homework with its own schema.
+in `data/README.md`.

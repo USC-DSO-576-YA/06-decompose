@@ -47,8 +47,3 @@ Missing or uncertain fields can remain. Record counts reflect available reports,
 not every fire that occurred. Historical occurrence is not a forecast of risk.
 Point locations are not burned-area perimeters. Summed `FIRE_SIZE` is reported
 fire acreage; it is not necessarily unique land area burned.
-
-## Separate homework data
-
-`11-ralphs_sales.csv.gz` is the unchanged instructor-supplied Ralphs archive.
-Use it only with `module06_ralphs.ipynb` and `RALPHS_HOMEWORK.md`.

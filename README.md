@@ -65,11 +65,3 @@ For new, ungraded pandas practice, ask:
 You can also request mixed practice, date/string multiple-choice tracing,
 merge/concat output tables, or input/output code-writing questions. Assigned
 class work and homework stay hints-only; practice questions use fresh data.
-
-## Ralphs homework
-
-The homework remains separate: complete [module06_ralphs.ipynb](module06_ralphs.ipynb)
-using [RALPHS_HOMEWORK.md](RALPHS_HOMEWORK.md). The original
-`data/11-ralphs_sales.csv.gz` is included unchanged. Submit the completed Ralphs
-notebook to the posted Module 6 homework assignment on Gradescope. Keep any work
-already started; do not begin again. Do not combine the two datasets.
