@@ -1,51 +1,54 @@
-# Data definitions
+# Wildfire data
 
-The four practice CSVs described below are fictional, created for this module.
-The additional Ralphs archive is a separate instructor-supplied dataset.
+| Item | Details |
+| --- | --- |
+| Source | USDA Forest Service, FPA FOD, seventh edition |
+| Coverage | U.S. reported wildfires, 1992–2024 |
+| Format | Zipped ESRI file geodatabase; no ArcGIS installation needed |
+| Classroom scope | California by default; source archive remains nationwide |
+| One row | One wildfire occurrence record |
+| Preparation | Download and extraction only; no supplied cleaning or aggregation |
 
-## Monday monthly files
+[Download the national archive](https://data.fs.usda.gov/geodata/edw/edw_resources/fc/S_USA.Fire_FPA_FOD_7th_Fires.gdb.zip)
+· [Dataset citation and metadata](https://doi.org/10.2737/RDS-2013-0009.7)
+· [USDA field reference](https://apps.fs.usda.gov/arcx/rest/services/EDW/EDW_FireOccurrenceCurrentEdition_01/MapServer/0)
 
-`sales_jan.csv`, `sales_feb.csv`, `sales_mar.csv`: eight orders per file.
-One row is one order. `order_id` uniquely identifies an order across the files;
-`region` is a non-missing label from West, East, South, North; `amount` is numeric
-USD sales before refunds. Filenames and region labels are safe for the classroom
-export example. The files share the same schema and do not overlap.
+Run `uv run python download_wildfire.py` from the repository root. Keep the
+extracted `.gdb` folder intact. `data/raw/wildfire_source.json` records the URL,
+archive size, SHA-256, and local path. Large downloaded files are ignored by Git
+and are not included in the student ZIP.
 
-## Wednesday weekly export
+The notebook loads selected source fields with `pyogrio`, without geometry.
+It retains latitude and longitude. The provided state filter selects the
+classroom scope; it does not clean the selected records. Set `STATE = None`
+only if you want to load the national table and have sufficient memory.
 
-`weekly_sales_messy.csv`: 24 records for the week ending September 13, 2026.
-One row is a product's sales at one retailer for that week. Products have distinct
-codes even when their descriptions are similar. Do not deduplicate on description.
+## Fields used in class
 
-- `record_id`: stable source-row identifier.
-- `week_ending`: reporting date, already in ISO format; no date cleaning required.
-- `product_code`: text identifier; leading zeros are meaningful.
-- `description`: exported product text, including package information.
-- `dollar_sales`: USD revenue for the row, not a price for one unit. Source text
-  contains dollar signs, thousands separators, and unknown-value placeholders.
-- `unit_sales`: number of sellable packages sold; some values may be absent.
+Names below use the geodatabase's uppercase field names.
 
-Package size is ounces per sellable package. For example, a single 8 oz package
-has size 8. A multipack description needs a separate interpretation rule. Dates,
-brands, flavors, and product-code parsing are not tasks in this exercise.
+| Field | Meaning |
+| --- | --- |
+| `FOD_ID` | Source record identifier |
+| `FIRE_NAME` | Reported fire name; may be missing |
+| `FIRE_YEAR`, `DISCOVERY_DATE` | Year and date the fire was discovered |
+| `CONT_DATE` | Containment date, when reported |
+| `FIRE_SIZE` | Final reported fire size in acres |
+| `FIRE_SIZE_CLASS` | Source size category |
+| `NWCG_CAUSE_CLASSIFICATION` | Broad cause classification |
+| `NWCG_GENERAL_CAUSE` | More detailed cause category |
+| `STATE`, `COUNTY` | State abbreviation and reported county value |
+| `FIPS_CODE`, `FIPS_NAME` | County code and name; retain codes as identifiers |
+| `LATITUDE`, `LONGITUDE` | Reported point location in decimal degrees |
 
-## Additional Ralphs dataset
+USDA has already standardized and checked the records and removed duplicates
+where possible. Inspect the actual data before deciding what needs cleaning.
+Missing or uncertain fields can remain. Record counts reflect available reports,
+not every fire that occurred. Historical occurrence is not a forecast of risk.
+Point locations are not burned-area perimeters. Summed `FIRE_SIZE` is reported
+fire acreage; it is not necessarily unique land area burned.
 
-`11-ralphs_sales.csv.gz` is the original instructor-supplied file, kept unchanged.
-The `11-` prefix belongs to its original filename; this repository is Module 6.
-It is additional material, not a replacement for `weekly_sales_messy.csv` in
-the current guided exercise. Inspect its columns and values before adapting
-the cleaning rules; the practice dataset's answers do not apply to this file.
+## Separate homework data
 
-The moved Ralphs homework uses this file in `module06_ralphs.ipynb` at the
-repository root. See `../RALPHS_HOMEWORK.md` for the full homework instructions.
-The archive is byte-for-byte identical to the copy formerly in Module 5.
-
-Read the compressed CSV directly with pandas (no manual extraction needed):
-
-```python
-import pandas as pd
-
-ralphs = pd.read_csv("data/11-ralphs_sales.csv.gz", dtype="string")
-print(ralphs.head())
-```
+`11-ralphs_sales.csv.gz` is the unchanged instructor-supplied Ralphs archive.
+Use it only with `module06_ralphs.ipynb` and `RALPHS_HOMEWORK.md`.

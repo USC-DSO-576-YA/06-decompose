@@ -1,6 +1,13 @@
 [project]
 name = "dso576-ya-06-decompose"
 version = "0.1.0"
-description = "Module 6 classroom data and pandas environment"
+description = "Module 6 wildfire data preparation and dashboard classroom environment"
 requires-python = ">=3.11"
-dependencies = ["pandas==2.2.3", "ipykernel>=6,<8"]
+dependencies = [
+    "pandas==2.2.3",
+    "ipykernel>=6,<8",
+    "geopandas>=1,<2",
+    "pyogrio>=0.11,<0.14",
+    "streamlit>=1.40,<2",
+    "plotly>=6,<7",
+]
