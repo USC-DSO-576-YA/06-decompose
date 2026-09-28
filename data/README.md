@@ -5,7 +5,7 @@
 | Source | USDA Forest Service, FPA FOD, seventh edition |
 | Coverage | U.S. reported wildfires, 1992–2024 |
 | Format | Zipped ESRI file geodatabase; no ArcGIS installation needed |
-| Classroom scope | Load all states, then select California in the notebook |
+| Classroom scope | Read all states in chunks; keep California rows in the notebook |
 | One row | One wildfire occurrence record |
 | Preparation | Download, extraction, and a full CSV export; no cleaning or filtering |
 
@@ -20,15 +20,16 @@ and are not included in the student ZIP.
 
 The supplied script creates `data/raw/wildfire_raw.csv` with **all 2,661,383
 records**, all 38 attribute fields, and the source `OBJECTID`. The archive has
-one table, so no merge or concat is needed. No records are removed, filled,
+one table, so no merge is needed. No records are removed, filled,
 relabeled, deduplicated, or aggregated. Geometry stays in the original `.gdb`;
 latitude and longitude are included in the CSV.
 
-The notebook loads all fields as text to preserve codes and reported values.
-Empty CSV fields are read as missing. Numeric and date conversions are left
-for class. The last loading step selects California into `ca`, keeping all
-columns. `raw` stays nationwide. The fields below are examples used in class;
-they are not a limit on the columns loaded.
+The notebook reads 100,000 rows at a time, keeping all fields as text.
+Only empty CSV fields are read as missing; strings such as `"NA"` stay as text.
+A `for` loop keeps CA rows from each chunk. `pd.concat()` stacks them into `ca`,
+with all columns. The national CSV stays unchanged. Numeric and date conversions
+are left for class. Keep `ca` unchanged and create a separate analysis table.
+The fields below are examples, not a limit on the columns loaded.
 
 ## Fields used in class
 

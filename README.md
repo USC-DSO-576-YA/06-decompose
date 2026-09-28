@@ -21,9 +21,10 @@ and attribute field to `data/raw/wildfire_raw.csv`, and returns its path.
 Completed files are reused. Allow about 4 GB of free disk space.
 Rerun the cell if the connection fails.
 
-The notebook loads the full table with pandas, then selects California with
-`.loc[]`. It keeps all columns. The source has one table, so no merge or concat
-is needed. Cleaning, type conversions, and analysis are left for class.
+The notebook reads 100,000 rows at a time. A `for` loop keeps the CA rows
+from each chunk; `pd.concat()` stacks them into `ca`. All columns are kept.
+The national CSV stays unchanged. Cleaning, type conversions, and analysis
+are left for class. Rerun the cell that creates `chunks` before rerunning the loop.
 
 You can also prepare the data from Terminal or PowerShell:
 

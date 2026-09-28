@@ -3,8 +3,11 @@
 Follow `AGENTS.md`. The class workflow is **inspect → clean → plan → build**.
 Use `module06_wildfire.ipynb` and `data/README.md` for context. The supplied
 `download_wildfire.py` exports the full nationwide table without cleaning.
-The notebook loads all records and columns, then selects California with pandas.
-Students choose cleaning rules and data types during class.
+The notebook reads the CSV in chunks, keeps CA rows in a `for` loop, and stacks
+those rows with `pd.concat()`. It keeps all columns. `chunks` is an iterator;
+`chunk` is one DataFrame; `parts` is a list of DataFrames; `ca` is the result.
+Rerun the cell that creates `chunks` before rerunning the loop. Keep `ca` unchanged.
+Students choose cleaning rules and data types for a new analysis table in class.
 
 ## For students: start here
 
