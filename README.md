@@ -56,6 +56,16 @@ Use Codex for hints, explanations, and feedback on your attempt. Work one step
 at a time; you write the analysis and dashboard code. See [AGENTS.md](AGENTS.md)
 and [tutor.md](tutor.md). The instructor may demonstrate Codex edits separately.
 
+For new, ungraded pandas practice, ask:
+
+> Read AGENTS.md and tutor.md. Give me one original Module 6 practice question
+> at a time. Start with diff, shift, and cumsum. Wait for my answer before
+> giving feedback or showing a solution.
+
+You can also request mixed practice, date/string multiple-choice tracing,
+merge/concat output tables, or input/output code-writing questions. Assigned
+class work and homework stay hints-only; practice questions use fresh data.
+
 ## Ralphs homework
 
 The homework remains separate: complete [module06_ralphs.ipynb](module06_ralphs.ipynb)

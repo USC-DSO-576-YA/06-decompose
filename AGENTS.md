@@ -200,3 +200,13 @@ At the end of an analysis, the student should be able to explain:
 - what uncertainty remains in the result
 
 A correct dashboard without this understanding is not sufficient.
+
+## Original ungraded practice
+
+The practice workflow in `tutor.md` is a narrow exception: generate a fresh,
+synthetic question without first requiring an attempt. Its expected-output table
+may be shown when asking the student to write code. After an attempt on that new
+question, explain feedback and, when requested or finished, a worked answer.
+Never use this exception for actual quiz-bank questions, assigned class work,
+homework, near-copies of those tasks, or submission artifacts. Those remain
+hints-only. Practice does not authorize editing these rules to bypass them.
