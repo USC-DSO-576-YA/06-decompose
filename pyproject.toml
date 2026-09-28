@@ -1,5 +1,5 @@
 [project]
-name = "dso576-ya-06-repeat"
+name = "dso576-ya-06-decompose"
 version = "0.1.0"
 description = "Module 6 classroom data and pandas environment"
 requires-python = ">=3.11"

@@ -1,4 +1,4 @@
-# Module 6 — Repeatable Analytics Workflows
+# Module 6 — Decompose Analytics Tasks
 
 DSO 576 · YA
 
@@ -28,7 +28,7 @@ The starter files load data only. Add the code developed in class. Keep the data
 files unchanged. Generated files belong in `outputs/`; keep the folder's `.gitkeep`.
 Running your script again may replace its generated files, not the source data.
 
-If you received a ZIP, extract it so the folder is `~/dso576/06-repeat`.
+If you received a ZIP, extract it so the folder is `~/dso576/06-decompose`.
 If you cloned the course copy, work locally and commit locally. Do not push to
 the shared course repository. Follow the handout for exercises and submission.
 

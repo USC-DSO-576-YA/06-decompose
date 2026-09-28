@@ -1,4 +1,4 @@
-# Module 6 tutor — Repeatable Analytics Workflows
+# Module 6 tutor — Decompose Analytics Tasks
 
 The central question is: **We can analyze one dataset; how do we repeat that
 workflow for many files, regions, or clients and check each step?**

@@ -15,9 +15,9 @@ assignment on Gradescope. Follow the posted course calendar for the deadline.
 
 ### Data and setup
 
-The data is in your [YA Module 6 repository](https://github.com/USC-DSO-576-YA/06-repeat),
+The data is in your [YA Module 6 repository](https://github.com/USC-DSO-576-YA/06-decompose),
 at `data/11-ralphs_sales.csv.gz`. Save your notebook in the top-level
-`06-repeat` folder, beside the `data` folder, so the relative path below works.
+`06-decompose` folder, beside the `data` folder, so the relative path below works.
 This starter loads the source as strings so you can inspect the original text:
 
 ```python
