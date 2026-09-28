@@ -4,24 +4,32 @@ Clean wildfire data, plan a dashboard, and build it in class.
 
 ## Before class
 
-Run these commands from this repository in Terminal or PowerShell:
+Run `uv sync --frozen` in this repository in Terminal or PowerShell.
+Open **[module06_wildfire.ipynb](module06_wildfire.ipynb)** in VS Code and select
+this folder's `.venv` Python as the kernel. Run the supplied setup cell:
+
+```python
+from pathlib import Path
+import pandas as pd
+from download_wildfire import download_data
+
+source = download_data()
+```
+
+This downloads the national USDA archive (about 259 MB), prepares the California
+CSV, and returns its path. Completed files are reused. Allow about 2 GB of free
+disk space. Rerun the cell if the connection fails.
+
+The next cell reads `source` with pandas. Class scope is **California, 1992–2024**.
+The notebook includes a short `.loc[]` example for selecting rows and columns.
+The source stays unchanged; cleaning and analysis are left for class.
+
+You can also prepare the data from Terminal or PowerShell:
 
 ```text
-uv sync --frozen
 uv run python download_wildfire.py
 ```
 
-The script downloads the national USDA archive (about 259 MB) and prepares
-`data/raw/wildfire_ca.csv` with the California records and class columns.
-It preserves the source and does no cleaning or aggregation. Allow about 2 GB
-of free disk space. Completed downloads and CSVs are reused. Rerun the command
-if the connection fails.
-
-Open **[module06_wildfire.ipynb](module06_wildfire.ipynb)** in VS Code and select
-this folder's `.venv` Python as the kernel. Run only the supplied setup and load
-cells before class. The CSV contains **California, 1992–2024**; the downloaded
-archive includes all states. The notebook uses `pd.read_csv()` and shows a short
-`.loc[]` example for selecting rows and columns.
 If necessary, register the kernel with:
 
 ```text

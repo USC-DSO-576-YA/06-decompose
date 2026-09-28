@@ -22,7 +22,7 @@ CLASS_COLUMNS = [
 ]
 
 
-def download_data(data_dir=RAW_DIR):
+def _download_source(data_dir=RAW_DIR):
     """Return the local geodatabase path; reuse a completed download."""
     data_dir = Path(data_dir).resolve()
     data_dir.mkdir(parents=True, exist_ok=True)
@@ -105,7 +105,7 @@ def download_data(data_dir=RAW_DIR):
 
 def prepare_class_csv(data_dir=RAW_DIR):
     """Export California source fields without cleaning or aggregation."""
-    source = download_data(data_dir)
+    source = _download_source(data_dir)
     csv_path = Path(data_dir).resolve() / "wildfire_ca.csv"
     if csv_path.is_file():
         print(f"Class CSV already available: {csv_path}")
@@ -129,11 +129,16 @@ def prepare_class_csv(data_dir=RAW_DIR):
     return csv_path
 
 
+def download_data(data_dir=RAW_DIR):
+    """Prepare the class data and return its CSV path for pandas."""
+    return prepare_class_csv(data_dir)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-dir", type=Path, default=RAW_DIR)
     args = parser.parse_args()
     try:
-        prepare_class_csv(args.data_dir)
+        download_data(args.data_dir)
     except (OSError, ValueError, BadZipFile) as error:
         parser.exit(1, f"Download setup failed: {error}\nFix the connection or path and rerun.\n")
